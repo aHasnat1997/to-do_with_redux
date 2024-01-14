@@ -1,11 +1,10 @@
-import { Modal } from "./components/to-do/Modal"
+import Hero from "./components/to-do/Hero"
 
 function App() {
   return (
-    <>
-      <h1 className="text-2xl font-bold">My Redux To-Do App...</h1>
-      <Modal />
-    </>
+    <main>
+      <Hero />
+    </main>
   )
 }
 
