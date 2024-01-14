@@ -11,12 +11,12 @@ function Hero() {
     const dateOptions: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
 
     return (
-        <section className='h-full w-full py-16 pl-40 flex flex-col justify-between'>
+        <section className='h-full w-full py-16 pl-8 lg:pl-40 flex flex-col justify-between'>
             <div className='text-4xl text-white'><FaBarsStaggered /></div>
-            <h1 className='text-6xl text-white font-bold'>Your Personal <br /> To-Do List...</h1>
+            <h1 className='text-4xl lg:text-6xl text-white font-bold'>Your Personal <br /> To-Do List...</h1>
             <div>
-                <p className='text-7xl text-white'>{new Intl.DateTimeFormat('en-US', timeOptions).format(new Date(date))}</p>
-                <p className='text-4xl text-white'>{new Intl.DateTimeFormat('en-US', dateOptions).format(new Date(date))}</p>
+                <p className='text-4xl lg:text-7xl text-white'>{new Intl.DateTimeFormat('en-US', timeOptions).format(new Date(date))}</p>
+                <p className='lg:text-4xl text-white'>{new Intl.DateTimeFormat('en-US', dateOptions).format(new Date(date))}</p>
             </div>
         </section>
     )

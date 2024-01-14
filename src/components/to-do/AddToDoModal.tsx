@@ -17,7 +17,7 @@ function AddToDoModal() {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="text-5xl size-24 rounded-full"><FaPlus /></Button>
+                <Button className="text-2xl lg:text-5xl size-16 lg:size-24 rounded-full"><FaPlus /></Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px] bg-slate-900 border-slate-900">
                 <DialogHeader>

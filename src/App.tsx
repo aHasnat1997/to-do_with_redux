@@ -6,7 +6,7 @@ import AddToDoModal from './components/to-do/AddToDoModal';
 function App() {
   return (
     <main
-      className='h-screen w-full flex relative'
+      className='h-screen w-full lg:flex relative'
       style={{
         backgroundImage: `radial-gradient(#0000005b, #000000), url(${bgImg})`,
         backgroundSize: 'cover',
@@ -16,7 +16,7 @@ function App() {
     >
       <Hero />
       <ToDoList />
-      <div className='absolute right-8 bottom-8'>
+      <div className='fixed right-4 lg:right-8 bottom-4 lg:bottom-8'>
         <AddToDoModal />
       </div>
     </main>

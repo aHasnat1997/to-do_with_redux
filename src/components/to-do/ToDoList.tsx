@@ -9,7 +9,7 @@ function ToDoList() {
     return (
         <section className="w-full h-full bg-black/50 py-16">
             <h2 className="text-4xl font-semibold text-white text-center">Your To-Do List</h2>
-            <div className="w-full h-[80%] mt-8 px-16 space-y-4 overflow-y-scroll no-scrollbar ">
+            <div className="w-full h-fit lg:h-[80%] mt-8 px-4 lg:px-16 space-y-4 overflow-scroll no-scrollbar">
                 {
                     toDoesList.length === 0 ?
                         <h3 className="text-center text-white text-2xl">No To-Do added...</h3> :
