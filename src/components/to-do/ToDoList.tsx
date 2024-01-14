@@ -1,28 +1,34 @@
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaRegEdit, FaEye } from "react-icons/fa";
+import ToDoDetailsModal from "./ToDoDetailsModal";
+import ToDoEditModal from "./ToDoEditModal";
+import { Button } from "../ui/button";
 
 function ToDoList() {
+    const toDoesList = [1, 2, 3, 4, 5, 6, 7, 8]
+
     return (
         <section className="w-full h-full bg-black/50 py-16">
-            <h2 className="text-4xl text-white text-center">Your To-Do List</h2>
-            <div className="w-full mt-8 px-16 space-y-4">
+            <h2 className="text-4xl font-semibold text-white text-center">Your To-Do List</h2>
+            <div className="w-full h-[80%] mt-8 px-16 space-y-4 overflow-y-scroll no-scrollbar ">
                 {
-                    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => <div
-                        key={item}
-                        className="pb-2 text-2xl text-white flex gap-4 border-b"
-                    >
-                        <input type="checkbox" />
-                        <ul className="w-full flex justify-between">
-                            <li>Title</li>
-                            <li>Create at</li>
-                            <li>Status</li>
-                            <li className="flex gap-4">
-                                <FaEye />
-                                <FaRegEdit />
-                                <RiDeleteBin6Line />
-                            </li>
-                        </ul>
-                    </div>)
+                    toDoesList.length === 0 ?
+                        <h3 className="text-center text-white text-2xl">No To-Do added...</h3> :
+                        toDoesList.map((item) => <div
+                            key={item}
+                            className="pb-2 text-2xl text-white flex gap-4 border-b"
+                        >
+                            <input type="checkbox" />
+                            <ul className="w-full flex justify-between">
+                                <li>Title</li>
+                                <li>Create at</li>
+                                <li>Status</li>
+                                <li className="flex">
+                                    <ToDoDetailsModal />
+                                    <ToDoEditModal />
+                                    <Button variant='ghost' className="text-2xl"><RiDeleteBin6Line /></Button>
+                                </li>
+                            </ul>
+                        </div>)
                 }
             </div>
         </section>

@@ -41,7 +41,7 @@ function AddToDoModal() {
                 <DialogFooter>
                     <DialogClose asChild>
                         <Button type="submit" variant='secondary'>
-                            Save changes
+                            Save
                         </Button>
                     </DialogClose>
                 </DialogFooter>
