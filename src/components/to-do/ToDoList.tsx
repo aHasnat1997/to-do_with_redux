@@ -28,7 +28,7 @@ function ToDoList() {
                                 <li>{new Intl.DateTimeFormat('en-US', timeOptions).format(new Date(item.createdAt))}</li>
                                 <li>{item.status}</li>
                                 <li className="flex">
-                                    <ToDoDetailsModal />
+                                    <ToDoDetailsModal title={item.title} description={item.description} />
                                     <ToDoEditModal />
                                     <Button
                                         variant='ghost'

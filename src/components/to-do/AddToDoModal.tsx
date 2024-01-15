@@ -3,6 +3,7 @@ import {
     Dialog,
     DialogContent,
     DialogDescription,
+    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -61,15 +62,17 @@ function AddToDoModal() {
                             ref={detailsRef}
                         />
                     </div>
-                    <DialogClose asChild>
-                        <Button
-                            type="submit"
-                            variant='secondary'
-                            className="mt-4"
-                        >
-                            Save
-                        </Button>
-                    </DialogClose>
+                    <DialogFooter>
+                        <DialogClose asChild>
+                            <Button
+                                type="submit"
+                                variant='secondary'
+                                className="mt-4"
+                            >
+                                Save
+                            </Button>
+                        </DialogClose>
+                    </DialogFooter>
                 </form>
             </DialogContent>
         </Dialog>

@@ -13,7 +13,11 @@ import { DialogClose } from '@radix-ui/react-dialog';
 import { FaEye } from 'react-icons/fa';
 import { Textarea } from '../ui/textarea';
 
-function ToDoDetailsModal() {
+type TPayload = {
+    title: string,
+    description: string
+}
+function ToDoDetailsModal(payload: TPayload) {
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -30,13 +34,13 @@ function ToDoDetailsModal() {
                     <Input
                         id='title'
                         className='outline-none'
-                        defaultValue='To-Do Title'
+                        defaultValue={payload.title}
                         readOnly
                     />
                     <Textarea
                         id='description'
                         className='outline-none'
-                        defaultValue='your to-do details'
+                        defaultValue={payload.description}
                         readOnly
                     />
                 </div>
