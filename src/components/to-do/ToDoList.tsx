@@ -2,9 +2,15 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import ToDoDetailsModal from "./ToDoDetailsModal";
 import ToDoEditModal from "./ToDoEditModal";
 import { Button } from "../ui/button";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { removeToDo, toggleToDoStatus } from "@/redux/features/toDoes";
+import { MdOutlineCheckBoxOutlineBlank, MdOutlineCheckBox } from "react-icons/md";
 
 function ToDoList() {
-    const toDoesList = [1, 2, 3, 4, 5, 6, 7, 8]
+    const toDoesList = useAppSelector((state) => state.toDoes);
+    const dispatch = useAppDispatch();
+
+    const timeOptions: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true, day: 'numeric', month: 'numeric', year: 'numeric' };
 
     return (
         <section className="w-full h-full bg-black/50 py-16">
@@ -14,18 +20,29 @@ function ToDoList() {
                     toDoesList.length === 0 ?
                         <h3 className="text-center text-white text-2xl">No To-Do added...</h3> :
                         toDoesList.map((item) => <div
-                            key={item}
+                            key={item.id}
                             className="pb-2 text-2xl text-white flex gap-4 border-b"
                         >
-                            <input type="checkbox" />
+                            <Button
+                                className="p-0 bg-transparent hover:bg-transparent text-2xl"
+                                onClick={() => dispatch(toggleToDoStatus(item.id))}
+                            >
+                                {item.status ? <MdOutlineCheckBox /> : <MdOutlineCheckBoxOutlineBlank />}
+                            </Button>
                             <ul className="w-full flex justify-between">
-                                <li>Title</li>
-                                <li>Create at</li>
-                                <li>Status</li>
+                                <li>{item.title}</li>
+                                <li>{new Intl.DateTimeFormat('en-US', timeOptions).format(new Date(item.createdAt))}</li>
+                                <li>{item.status ? 'done' : 'pending'}</li>
                                 <li className="flex">
-                                    <ToDoDetailsModal />
-                                    <ToDoEditModal />
-                                    <Button variant='ghost' className="text-2xl"><RiDeleteBin6Line /></Button>
+                                    <ToDoDetailsModal title={item.title} description={item.description} />
+                                    <ToDoEditModal title={item.title} description={item.description} />
+                                    <Button
+                                        variant='ghost'
+                                        className="text-2xl"
+                                        onClick={() => dispatch(removeToDo(item.id))}
+                                    >
+                                        <RiDeleteBin6Line />
+                                    </Button>
                                 </li>
                             </ul>
                         </div>)

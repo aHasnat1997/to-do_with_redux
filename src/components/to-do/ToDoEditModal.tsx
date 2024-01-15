@@ -13,7 +13,11 @@ import { DialogClose } from '@radix-ui/react-dialog';
 import { FaRegEdit } from 'react-icons/fa';
 import { Textarea } from '../ui/textarea';
 
-function ToDoEditModal() {
+type TPayload = {
+    title: string,
+    description: string
+}
+function ToDoEditModal(payload: TPayload) {
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -31,13 +35,13 @@ function ToDoEditModal() {
                         id='title'
                         className='outline-none'
                         placeholder='Add Title'
-                        defaultValue='To-Do Title'
+                        defaultValue={payload.title}
                     />
                     <Textarea
                         id='description'
                         className='outline-none'
                         placeholder='Add Description'
-                        defaultValue='your to-do details'
+                        defaultValue={payload.description}
                     />
                 </div>
                 <DialogFooter>
