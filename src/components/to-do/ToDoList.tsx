@@ -2,9 +2,12 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import ToDoDetailsModal from "./ToDoDetailsModal";
 import ToDoEditModal from "./ToDoEditModal";
 import { Button } from "../ui/button";
+import { useAppSelector } from "@/redux/hooks";
 
 function ToDoList() {
-    const toDoesList = [1, 2, 3, 4, 5, 6, 7, 8]
+    const toDoesList = useAppSelector((state) => state.toDoes);
+
+    const timeOptions: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true, day: 'numeric', month: 'numeric', year: 'numeric' };
 
     return (
         <section className="w-full h-full bg-black/50 py-16">
@@ -14,14 +17,14 @@ function ToDoList() {
                     toDoesList.length === 0 ?
                         <h3 className="text-center text-white text-2xl">No To-Do added...</h3> :
                         toDoesList.map((item) => <div
-                            key={item}
+                            key={item.id}
                             className="pb-2 text-2xl text-white flex gap-4 border-b"
                         >
                             <input type="checkbox" />
                             <ul className="w-full flex justify-between">
-                                <li>Title</li>
-                                <li>Create at</li>
-                                <li>Status</li>
+                                <li>{item.title}</li>
+                                <li>{new Intl.DateTimeFormat('en-US', timeOptions).format(new Date(item.createdAt))}</li>
+                                <li>{item.status}</li>
                                 <li className="flex">
                                     <ToDoDetailsModal />
                                     <ToDoEditModal />
