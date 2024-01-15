@@ -29,7 +29,7 @@ function AddToDoModal() {
             title: titleRef.current?.value as string,
             description: detailsRef.current?.value as string,
             createdAt: new Date().toISOString(),
-            status: 'pending'
+            status: false
         }
 
         dispatch(addToDo(data));

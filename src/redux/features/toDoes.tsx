@@ -6,7 +6,7 @@ export type TToDo = {
     title: string,
     description: string,
     createdAt: string,
-    status: 'done' | 'pending'
+    status: boolean
 }
 
 const initialState: TToDo[] = []
@@ -16,13 +16,16 @@ export const toDoesSlice = createSlice({
     initialState,
     reducers: {
         addToDo: (state, action: PayloadAction<TToDo>) => {
-            state.push(action.payload);
+            state.unshift(action.payload);
         },
         removeToDo: (state, action: PayloadAction<string>) => {
             return state.filter(item => item.id !== action.payload);
         },
+        toggleToDoStatus: (state, action: PayloadAction<string>) => {
+            return state.map(item => item.id === action.payload ? { ...item, status: !item.status } : item);
+        }
     }
 })
 
-export const { addToDo, removeToDo } = toDoesSlice.actions;
+export const { addToDo, removeToDo, toggleToDoStatus } = toDoesSlice.actions;
 export default toDoesSlice.reducer;
