@@ -2,10 +2,12 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import ToDoDetailsModal from "./ToDoDetailsModal";
 import ToDoEditModal from "./ToDoEditModal";
 import { Button } from "../ui/button";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { removeToDo } from "@/redux/features/toDoes";
 
 function ToDoList() {
     const toDoesList = useAppSelector((state) => state.toDoes);
+    const dispatch = useAppDispatch();
 
     const timeOptions: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true, day: 'numeric', month: 'numeric', year: 'numeric' };
 
@@ -28,7 +30,13 @@ function ToDoList() {
                                 <li className="flex">
                                     <ToDoDetailsModal />
                                     <ToDoEditModal />
-                                    <Button variant='ghost' className="text-2xl"><RiDeleteBin6Line /></Button>
+                                    <Button
+                                        variant='ghost'
+                                        className="text-2xl"
+                                        onClick={() => dispatch(removeToDo(item.id))}
+                                    >
+                                        <RiDeleteBin6Line />
+                                    </Button>
                                 </li>
                             </ul>
                         </div>)
