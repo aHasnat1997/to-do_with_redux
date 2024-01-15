@@ -22,7 +22,7 @@ export const toDoesSlice = createSlice({
             return state.filter(item => item.id !== action.payload);
         },
         toggleToDoStatus: (state, action: PayloadAction<string>) => {
-            return state.map(item => item.id === action.payload ? { ...item, status: !item.status } : item);
+            return state.map(item => item.id === action.payload ? { ...item, status: !item.status } : item).sort((a, b) => (a.status === b.status) ? 0 : a.status ? 1 : -1);
         }
     }
 })
