@@ -12,12 +12,19 @@ import { Input } from "@/components/ui/input";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { FaPlus } from "react-icons/fa";
 import { Textarea } from "../ui/textarea";
-import { useAppDispatch } from "@/redux/hooks";
-import { TToDo, addToDo } from "@/redux/features/toDoes";
+// import { useAppDispatch } from "@/redux/hooks";
+import { TToDo } from "@/redux/features/toDoes";
 import { FormEvent, useRef } from "react";
+import { usePostToDoMutation } from "@/redux/services/toDose";
 
 function AddToDoModal() {
-    const dispatch = useAppDispatch();
+    //! for local state
+    // const dispatch = useAppDispatch();
+    //! for api state
+    const [newData, { isError }] = usePostToDoMutation(); //? Also have property like {isLoading, isSuccess, ...etc}
+    console.log("AddToDoModal Error ==> ", isError);
+
+
     const titleRef = useRef<HTMLInputElement>(null);
     const detailsRef = useRef<HTMLTextAreaElement>(null);
 
@@ -25,14 +32,16 @@ function AddToDoModal() {
         e.preventDefault();
 
         const data: TToDo = {
-            id: Math.random().toString(36).substring(2, 8),
             title: titleRef.current?.value as string,
             description: detailsRef.current?.value as string,
             createdAt: new Date().toISOString(),
             status: false
         }
 
-        dispatch(addToDo(data));
+        //! for local state
+        // dispatch(addToDo(data));
+        //! for api state
+        newData(data);
     }
 
     return (
