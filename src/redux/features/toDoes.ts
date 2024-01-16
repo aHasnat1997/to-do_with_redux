@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 export type TToDo = {
-    id: string,
+    id?: string,
     title: string,
     description: string,
     createdAt: string,
