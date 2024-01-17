@@ -3,9 +3,9 @@ import ToDoDetailsModal from "./ToDoDetailsModal";
 import ToDoEditModal from "./ToDoEditModal";
 import { Button } from "../ui/button";
 import { useAppDispatch } from "@/redux/hooks";
-import { TToDo, removeToDo, toggleToDoStatus } from "@/redux/features/toDoes";
+import { TToDo, toggleToDoStatus } from "@/redux/features/toDoes";
 import { MdOutlineCheckBoxOutlineBlank, MdOutlineCheckBox } from "react-icons/md";
-import { useGetAllToDoesQuery } from "@/redux/services/toDose";
+import { useDeleteToDoMutation, useGetAllToDoesQuery } from "@/redux/services/toDose";
 // import notFound from '../../assets/not-found.png';
 import Lottie from "lottie-react";
 import animation from '../../assets/animation.json';
@@ -15,6 +15,7 @@ function ToDoList() {
     // const toDoesList = useAppSelector((state) => state.toDoes);
     //! for api state
     const { data: toDoesList, isError, isLoading } = useGetAllToDoesQuery(undefined);
+    const [deleteToDo] = useDeleteToDoMutation()
     console.log('ToDoList error ==> ', isError);
     console.log(toDoesList);
 
@@ -64,7 +65,7 @@ function ToDoList() {
                                             <Button
                                                 variant='ghost'
                                                 className="text-2xl"
-                                                onClick={() => dispatch(removeToDo(item.id as string))}
+                                                onClick={() => deleteToDo(item.id as string)}
                                             >
                                                 <RiDeleteBin6Line />
                                             </Button>

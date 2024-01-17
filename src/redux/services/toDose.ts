@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-
 export const toDoseApi = createApi({
     reducerPath: 'toDoseApi',
     baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
@@ -20,8 +19,15 @@ export const toDoseApi = createApi({
                 body: data
             }),
             invalidatesTags: ['ToDoes']
+        }),
+        deleteToDo: builder.mutation({
+            query: (id) => ({
+                url: `/todos/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['ToDoes']
         })
     })
 });
 
-export const { useGetAllToDoesQuery, usePostToDoMutation } = toDoseApi;
+export const { useGetAllToDoesQuery, usePostToDoMutation, useDeleteToDoMutation } = toDoseApi;
