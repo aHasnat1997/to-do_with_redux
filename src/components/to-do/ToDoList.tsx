@@ -6,6 +6,9 @@ import { useAppDispatch } from "@/redux/hooks";
 import { TToDo, removeToDo, toggleToDoStatus } from "@/redux/features/toDoes";
 import { MdOutlineCheckBoxOutlineBlank, MdOutlineCheckBox } from "react-icons/md";
 import { useGetAllToDoesQuery } from "@/redux/services/toDose";
+// import notFound from '../../assets/not-found.png';
+import Lottie from "lottie-react";
+import animation from '../../assets/animation.json';
 
 function ToDoList() {
     //! for local state
@@ -13,20 +16,34 @@ function ToDoList() {
     //! for api state
     const { data: toDoesList, isError, isLoading } = useGetAllToDoesQuery(undefined);
     console.log('ToDoList error ==> ', isError);
+    console.log(toDoesList);
 
     const dispatch = useAppDispatch();
 
     const timeOptions: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true, day: 'numeric', month: 'numeric', year: 'numeric' };
 
     return (
-        <section className="w-full h-full bg-black/50 py-16">
+        <section className="w-full h-full bg-black/30 py-16">
             <h2 className="text-4xl font-semibold text-white text-center">Your To-Do List</h2>
             {
                 isLoading ? <h1>Loading...</h1> :
                     <div className="w-full h-fit lg:h-[80%] mt-8 px-4 lg:px-16 space-y-4 overflow-scroll no-scrollbar">
                         {
-                            !toDoesList ?
-                                <h3 className="text-center text-white text-2xl">No To-Do added...</h3> :
+                            !toDoesList || toDoesList.length === 0 ?
+                                <div className="w-full h-full flex items-center justify-center">
+                                    <div>
+                                        <Lottie
+                                            className="size-[10rem]"
+                                            animationData={animation}
+                                            loop={true}
+                                        />
+                                        <h3 className="text-center text-white text-2xl">No To-Do found</h3>
+                                    </div>
+                                </div>
+                                // <div>
+                                //     <img src={notFound} alt="icon" />
+                                // </div>
+                                :
                                 toDoesList.map((item: TToDo) => <div
                                     key={item.id}
                                     className="pb-2 text-2xl text-white flex gap-4 border-b"
