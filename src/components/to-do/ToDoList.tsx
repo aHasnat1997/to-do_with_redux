@@ -2,10 +2,10 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import ToDoDetailsModal from "./ToDoDetailsModal";
 import ToDoEditModal from "./ToDoEditModal";
 import { Button } from "../ui/button";
-import { useAppDispatch } from "@/redux/hooks";
-import { TToDo, toggleToDoStatus } from "@/redux/features/toDoes";
+// import { useAppDispatch } from "@/redux/hooks";
+import { TToDo } from "@/redux/features/toDoes";
 import { MdOutlineCheckBoxOutlineBlank, MdOutlineCheckBox } from "react-icons/md";
-import { useDeleteToDoMutation, useGetAllToDoesQuery } from "@/redux/services/toDose";
+import { useDeleteToDoMutation, useGetAllToDoesQuery, useToggleToDoStatusMutation } from "@/redux/services/toDose";
 // import notFound from '../../assets/not-found.png';
 import Lottie from "lottie-react";
 import animation from '../../assets/animation.json';
@@ -15,11 +15,12 @@ function ToDoList() {
     // const toDoesList = useAppSelector((state) => state.toDoes);
     //! for api state
     const { data: toDoesList, isError, isLoading } = useGetAllToDoesQuery(undefined);
-    const [deleteToDo] = useDeleteToDoMutation()
+    const [deleteToDo] = useDeleteToDoMutation();
+    const [toggleToDoStatus] = useToggleToDoStatusMutation();
     console.log('ToDoList error ==> ', isError);
     console.log(toDoesList);
 
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
 
     const timeOptions: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true, day: 'numeric', month: 'numeric', year: 'numeric' };
 
@@ -51,7 +52,7 @@ function ToDoList() {
                                 >
                                     <Button
                                         className="p-0 bg-transparent hover:bg-transparent text-2xl"
-                                        onClick={() => dispatch(toggleToDoStatus(item.id as string))}
+                                        onClick={() => toggleToDoStatus({ ...item, status: !item.status })}
                                     >
                                         {item.status ? <MdOutlineCheckBox /> : <MdOutlineCheckBoxOutlineBlank />}
                                     </Button>
