@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { TToDo } from "../features/toDoes";
 
 export const toDoseApi = createApi({
     reducerPath: 'toDoseApi',
@@ -20,8 +20,23 @@ export const toDoseApi = createApi({
                 body: data
             }),
             invalidatesTags: ['ToDoes']
+        }),
+        toggleToDoStatus: builder.mutation({
+            query: (data: TToDo) => ({
+                url: `/todos/${data.id}`,
+                method: 'PATCH',
+                body: data
+            }),
+            invalidatesTags: ['ToDoes']
+        }),
+        deleteToDo: builder.mutation({
+            query: (id) => ({
+                url: `/todos/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['ToDoes']
         })
     })
 });
 
-export const { useGetAllToDoesQuery, usePostToDoMutation } = toDoseApi;
+export const { useGetAllToDoesQuery, usePostToDoMutation, useDeleteToDoMutation, useToggleToDoStatusMutation } = toDoseApi;
